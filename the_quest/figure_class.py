@@ -14,15 +14,20 @@ RESOLUCION=(800,800)
 
 
 class Nave(pg.sprite.Sprite):#clase nave jugador
-    def __init__(self,):
+    def __init__(self):
         super().__init__() #funcion super class
         self.image = pg.image.load("images/nave1.png").convert() #cargar imagen nave
         self.image.set_colorkey(NEGRO) #funcion para remover el fondo negro de la imagen de la nave
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect()#para poder posicionar el ractangulo
         self.rect.centerx = ANCHO // 2 #posicion central salida nave con el rectangulo
         self.rect.y= ALTO -10  #posicion altura salida nave con el rect
         self.speed_x = 0 #velicidad
         self.fps = 0
 
 
+class Meter(pg.sprite.Sprite): #clase meteorito
+    def __init__(self):
+        super().__init__()
+        self.image = pg.image.load("images/meter.png")
+        self.rect = self.image.get_rect()
     
