@@ -1,10 +1,6 @@
 import pygame as pg
-import random
-from random import randint
-from pygame.locals import *
-from main import Nave, Meter
-from utils import*
-import sys, os
+from utils.__init__ import *
+from planet import Planet
 
 
 
@@ -83,6 +79,75 @@ class Game():
         self.all_sprite_list.draw(main_screen)#dibujar lista de todos los sprites en la pantalla
         pg.display.flip() 
 '''
+
+
+
+class MenuInicial:
+    def __init__(self, screen, clock, font) -> None:
+        self.screen = screen
+        self.clock = clock
+        self.font = font
+
+        self.fondoMenuPrincipal = pg.image.load("images/menuBackground.png")
+
+        self.menuPrincipal = pg.image.load("images/menuPrincipal.png")
+        self.menuPrincipal = pg.transform.scale(self.menuPrincipal, (WIDTH, HEIGHT))
+
+
+        self.planetImages = self.getListOfAnimationImages("images/earthSpriteSheet.png", 50)
+        for i in range(len(self.planetImages)):
+            image = self.planetImages[i]
+            image = pg.transform.scale(image, (HEIGHT//1.5, HEIGHT//1.5))
+            image.set_colorkey((0, 0, 0))
+            self.planetImages[i] = image
+
+        self.planeta = Planet(self.screen, self.planetImages, inGame=False)
+
+        self.continueToGame = False
+
+    def getListOfAnimationImages(self, spriteSheet, numOfImages):
+        images = []
+        spriteSheet = pg.image.load(spriteSheet).convert()
+        spriteWidth = spriteSheet.get_width() // numOfImages
+        for i in range(numOfImages):
+            image = spriteSheet.subsurface(pg.Rect(i * spriteWidth, 0, spriteWidth, spriteSheet.get_height()))
+            images.append(image)
+
+        return images
+
+    def events(self):
+        # eventos
+        for event in pg.event.get():
+            #si se cancela la pantalla que se pare el "while" del gameloop
+            if event.type == pg.QUIT:
+                pg.quit()
+    
+    def checkForContinue(self):
+        keys = pg.key.get_pressed()
+        if keys[pg.K_SPACE]:
+            self.continueToGame = True
+
+    def update(self):
+        self.events()
+
+        self.checkForContinue()
+        self.screen.blit(self.fondoMenuPrincipal, (0, 0))
+        self.planeta.update()
+        
+        self.screen.blit(self.menuPrincipal, (0, 0))
+
+        self.clock.tick(FPS)
+        pg.display.flip()
+
+    def inicio(self):
+        while not self.continueToGame:
+            self.update()
+
+
+
+
+
+
 
 
 
