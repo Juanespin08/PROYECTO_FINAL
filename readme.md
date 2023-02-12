@@ -4,9 +4,11 @@
 
 ## En su entorno de python ejecutar el comando
 
+```
 
 pip install -r requirements.txt
 
+```
 
 la libreria utilizada https://www.pygame.org/news
 

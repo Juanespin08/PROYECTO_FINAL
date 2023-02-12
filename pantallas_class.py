@@ -130,7 +130,19 @@ class Game:
             image.set_colorkey((0, 0, 0))
             self.planetImages[i] = image
         self.planets = []
+    '''   
+        # valores musica
+        self.songs = []
+        for song in os.listdir("music"):
+            if os.path.isfile(f"music/{song}"):
+                self.songs.append(f"music/{song}")
+        
+        self.playSong()
 
+    def playSong(self):
+        pg.mixer.music.load(random.choice(self.songs))
+        pg.mixer.music.play()
+    '''
     def newBackground(self):
         return pg.image.load(f'images/fondos/{random.choice(os.listdir("images/fondos"))}')
 
@@ -148,7 +160,9 @@ class Game:
         self.planets.clear()
         self.nave.__init__(self.screen, self.velocidadNave, self.cooldownDisparo, self.nave.lives)
         self.gameBackground = self.newBackground()
-
+        '''
+        self.playSong()
+        '''
     def getListOfAnimationImages(self, spriteSheet, numOfImages):
         # Crea una lista vacía para almacenar las imágenes extraídas
         images = []

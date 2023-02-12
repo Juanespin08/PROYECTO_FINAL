@@ -1,7 +1,6 @@
 from utils.__init__ import *
 import pygame as pg
 
-# BALA
 class Bullet(pg.sprite.Sprite):
     def __init__(self, screen, pos, speed):
         # init values
@@ -16,7 +15,10 @@ class Bullet(pg.sprite.Sprite):
 
         # para centrar el disparo
         self.pos[0] -= self.image.get_width()/2
-
+    '''
+        #self.sound = pg.mixer.Sound("music/sfx/laser.mp3")
+        #self.sound.play()
+      '''
     def updateRect(self):
         # actualizar la posicion del rectangulo
         self.rect.center = self.pos[0], self.pos[1]
@@ -56,7 +58,10 @@ class Explosion(pg.sprite.Sprite):
 
         # Centrar la explosion
         self.pos[0] -= self.animationImages[0].get_width()/2
-        
+        '''
+        self.sound = pg.mixer.Sound("music/sfx/explosion.mp3")
+        self.sound.play()
+        '''
     def animation(self):
         # Incrementar el valor que indica la imagen adequada por la animacion
         self.imageIndex += self.animationSpeed
