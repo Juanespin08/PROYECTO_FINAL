@@ -1,4 +1,4 @@
-from scene_controller import Pantallas
+from Scene_controller  import SceneController
 
-juego = Pantallas()
-juego.inicio()
+inicio = SceneController()
+inicio.start() 
