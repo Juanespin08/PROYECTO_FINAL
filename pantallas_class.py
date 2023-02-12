@@ -4,6 +4,8 @@ from utils.__init__ import *
 from figure_class import *
 import sys 
 
+
+
 class MenuInicial:
     # Constructor de la clase
     def __init__(self, screen, clock, font) -> None:
@@ -56,7 +58,7 @@ class MenuInicial:
         for event in pg.event.get():
             # Si se recibe un evento de cierre de la pantalla, se cierra pygame
             if event.type == pg.QUIT:
-               sys.exit()
+                sys.exit()
 
     # Función que verifica si se debe continuar al juego
     def checkForContinue(self):
@@ -320,8 +322,8 @@ class Game:
         # eventos
         for event in pg.event.get():
             #si se cancela la pantalla que se pare el "while" del gameloop
-            if event.type == pg.QUIT: 
-             sys.exit()
+            if event.type == pg.QUIT:
+                sys.exit()
 
     def gameUpdate(self):
         self.events()
@@ -352,4 +354,36 @@ class Game:
         self.__init__(self.screen, self.clock, self.font)
         while not self.game_over:
             self.gameUpdate()
-        
+
+
+class PantallaMuerte:
+    def __init__(self, screen, clock) -> None:
+        self.screen = screen
+        self.clock = clock
+
+        self.backgroundImage = pg.image.load('images/pantallaMuerte.png')
+        self.continueToMenu = False
+    
+    def events(self):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                sys.exit()
+
+    def checkForContinue(self):
+        keys = pg.key.get_pressed()
+        if keys[pg.K_c]:
+            self.continueToMenu = True
+
+    def update(self):
+        self.events()
+
+        self.checkForContinue()
+        self.screen.blit(self.backgroundImage, (0, 0))
+    
+        pg.display.flip()
+        self.clock.tick(FPS)
+    
+    def inicio(self):
+        self.__init__(self.screen, self.clock)
+        while not self.continueToMenu:
+            self.update()

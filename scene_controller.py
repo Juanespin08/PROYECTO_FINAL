@@ -11,10 +11,11 @@ class SceneController:
 
         self.menuInicial = MenuInicial(self.screen, self.clock, self.font)
         self.game = Game(self.screen, self.clock, self.font)
-
+        self.pantallaMuerte = PantallaMuerte(self.screen, self.clock)
         pg.display.set_caption("THE COLONIZERS by Juan_A Espin")
 
     def start(self):
         while True:
             self.menuInicial.inicio()
             self.game.inicio()
+            self.pantallaMuerte.inicio()
